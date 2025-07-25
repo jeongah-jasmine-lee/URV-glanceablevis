@@ -80,7 +80,7 @@ def load_data():
     
     return query_df, fitness_df
 
-def select_fitness_data(fitness_df, strategy='diverse', query_idx=None):
+def select_fitness_data(fitness_df, strategy='sequential', query_idx=None):
     """
     Select fitness data based on different strategies
     
@@ -156,7 +156,7 @@ Mood After Workout: {row['Mood After Workout']}"""
 def call_openai_gpt4(prompt):
     """Call OpenAI GPT-4 API"""
     try:
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-4",
             messages=[{"role": "user", "content": prompt}],
             temperature=TEMPERATURE,
@@ -205,6 +205,19 @@ def svg_to_png(svg_content, output_path):
     except Exception as e:
         log_message(f"Error converting SVG to PNG: {e}")
         return False
+
+def check_existing_files(model_folder):
+    """Check if all required files exist and are not empty"""
+    required_files = ['result.svg', 'result.png', 'prompt.txt']
+    
+    for filename in required_files:
+        filepath = os.path.join(model_folder, filename)
+        if not os.path.exists(filepath):
+            return False
+        if os.path.getsize(filepath) == 0:  # File exists but is empty
+            return False
+    
+    return True
 
 def save_model_results(query_data, health_data, fitness_row, prompt, svg_content, 
                       response, model_folder):
@@ -272,6 +285,33 @@ def main():
     # Process first NUM_QUERIES queries
     queries_to_process = query_df.head(NUM_QUERIES)
     
+    # Check existing progress
+    log_message(f"\nChecking existing progress...")
+    existing_openai = 0
+    existing_claude = 0
+    
+    for idx in range(len(queries_to_process)):
+        safe_query_name = create_safe_folder_name(queries_to_process.iloc[idx]['query'])
+        query_folder_name = f"{idx+1:03d}_{safe_query_name}"
+        
+        openai_query_folder = os.path.join(openai_folder, query_folder_name)
+        claude_query_folder = os.path.join(claude_folder, query_folder_name)
+        
+        if check_existing_files(openai_query_folder):
+            existing_openai += 1
+        if check_existing_files(claude_query_folder):
+            existing_claude += 1
+    
+    log_message(f"Found existing results:")
+    log_message(f"  OpenAI: {existing_openai}/{len(queries_to_process)} already completed")
+    log_message(f"  Claude: {existing_claude}/{len(queries_to_process)} already completed")
+    
+    remaining_work = (len(queries_to_process) - existing_openai) + (len(queries_to_process) - existing_claude)
+    if remaining_work == 0:
+        log_message("✅ All queries already completed! No new work needed.")
+    else:
+        log_message(f"🔄 {remaining_work} API calls needed to complete remaining work")
+    
     log_message(f"\nProcessing {len(queries_to_process)} queries...")
     log_message("Data selection strategy: 'diverse' (different workout types)")
     log_message("=" * 50)
@@ -281,6 +321,8 @@ def main():
         'successful_claude': 0,
         'failed_openai': 0,
         'failed_claude': 0,
+        'skipped_openai': 0,
+        'skipped_claude': 0,
         'processed_queries': []
     }
     
@@ -299,7 +341,27 @@ def main():
         Path(openai_query_folder).mkdir(exist_ok=True)
         Path(claude_query_folder).mkdir(exist_ok=True)
         
-        # IMPORTANT: Select fitness data ONCE and use for BOTH models
+        # Check if files already exist
+        openai_exists = check_existing_files(openai_query_folder)
+        claude_exists = check_existing_files(claude_query_folder)
+        
+        query_result = {
+            'query_id': idx + 1,
+            'query_text': query_row['query'],
+            'folder_name': query_folder_name
+        }
+        
+        # Skip if both models already have complete results
+        if openai_exists and claude_exists:
+            log_message("  ✓ Both models already completed - skipping")
+            results['skipped_openai'] += 1
+            results['skipped_claude'] += 1
+            query_result['openai_success'] = True
+            query_result['claude_success'] = True
+            results['processed_queries'].append(query_result)
+            continue
+        
+        # Prepare data only if needed
         fitness_row = select_fitness_data(fitness_df, strategy='diverse', query_idx=idx)
         health_data = format_health_data(fitness_row)
         
@@ -311,58 +373,79 @@ def main():
             health_data=health_data
         )
         
-        query_result = {
-            'query_id': idx + 1,
-            'query_text': query_row['query'],
-            'folder_name': query_folder_name,
-            'fitness_user_id': int(fitness_row['User ID']),
-            'workout_type': fitness_row['Workout Type']
-        }
+        query_result['fitness_user_id'] = int(fitness_row['User ID'])
+        query_result['workout_type'] = fitness_row['Workout Type']
         
-        # Call OpenAI GPT-4
-        log_message("  Calling OpenAI GPT-4...")
-        openai_response = call_openai_gpt4(full_prompt)
-        openai_svg = extract_svg(openai_response)
-        
-        if save_model_results(query_row, health_data, fitness_row, full_prompt, 
-                             openai_svg, openai_response, openai_query_folder):
-            results['successful_openai'] += 1
+        # Call OpenAI GPT-4 only if needed
+        if openai_exists:
+            log_message("  ✓ OpenAI already completed - skipping")
+            results['skipped_openai'] += 1
             query_result['openai_success'] = True
-            log_message("  ✓ OpenAI files saved (SVG, PNG, prompt)")
         else:
-            results['failed_openai'] += 1
-            query_result['openai_success'] = False
-            log_message("  ✗ OpenAI generation failed")
+            log_message("  Calling OpenAI GPT-4...")
+            openai_response = call_openai_gpt4(full_prompt)
+            openai_svg = extract_svg(openai_response)
+            
+            if save_model_results(query_row, health_data, fitness_row, full_prompt, 
+                                 openai_svg, openai_response, openai_query_folder):
+                results['successful_openai'] += 1
+                query_result['openai_success'] = True
+                log_message("  ✓ OpenAI files saved (SVG, PNG, prompt)")
+            else:
+                results['failed_openai'] += 1
+                query_result['openai_success'] = False
+                log_message("  ✗ OpenAI generation failed")
         
         # Small delay between API calls
-        time.sleep(1)
+        if not openai_exists and not claude_exists:
+            time.sleep(1)
         
-        # Call Claude Opus 4 (with SAME prompt and data)
-        log_message("  Calling Claude Opus 4...")
-        claude_response = call_claude_opus4(full_prompt)
-        claude_svg = extract_svg(claude_response)
-        
-        if save_model_results(query_row, health_data, fitness_row, full_prompt, 
-                             claude_svg, claude_response, claude_query_folder):
-            results['successful_claude'] += 1
+        # Call Claude Opus 4 only if needed
+        if claude_exists:
+            log_message("  ✓ Claude already completed - skipping")
+            results['skipped_claude'] += 1
             query_result['claude_success'] = True
-            log_message("  ✓ Claude files saved (SVG, PNG, prompt)")
         else:
-            results['failed_claude'] += 1
-            query_result['claude_success'] = False
-            log_message("  ✗ Claude generation failed")
+            log_message("  Calling Claude Opus 4...")
+            claude_response = call_claude_opus4(full_prompt)
+            claude_svg = extract_svg(claude_response)
+            
+            if save_model_results(query_row, health_data, fitness_row, full_prompt, 
+                                 claude_svg, claude_response, claude_query_folder):
+                results['successful_claude'] += 1
+                query_result['claude_success'] = True
+                log_message("  ✓ Claude files saved (SVG, PNG, prompt)")
+            else:
+                results['failed_claude'] += 1
+                query_result['claude_success'] = False
+                log_message("  ✗ Claude generation failed")
         
         results['processed_queries'].append(query_result)
         
-        # Small delay between queries
-        time.sleep(1)
+        # Small delay between queries (only if we made API calls)
+        if not (openai_exists and claude_exists):
+            time.sleep(1)
     
     # Print results summary
     log_message("\n" + "=" * 50)
     log_message("RESULTS SUMMARY")
     log_message("=" * 50)
-    log_message(f"OpenAI GPT-4: {results['successful_openai']} successful, {results['failed_openai']} failed")
-    log_message(f"Claude Opus 4: {results['successful_claude']} successful, {results['failed_claude']} failed")
+    log_message(f"OpenAI GPT-4:")
+    log_message(f"  ✓ Successful: {results['successful_openai']}")
+    log_message(f"  ⏭️  Skipped (already done): {results['skipped_openai']}")
+    log_message(f"  ✗ Failed: {results['failed_openai']}")
+    
+    log_message(f"Claude Opus 4:")
+    log_message(f"  ✓ Successful: {results['successful_claude']}")
+    log_message(f"  ⏭️  Skipped (already done): {results['skipped_claude']}")
+    log_message(f"  ✗ Failed: {results['failed_claude']}")
+    
+    total_openai = results['successful_openai'] + results['skipped_openai']
+    total_claude = results['successful_claude'] + results['skipped_claude']
+    log_message(f"\nTotal completed:")
+    log_message(f"  OpenAI: {total_openai}/{len(queries_to_process)}")
+    log_message(f"  Claude: {total_claude}/{len(queries_to_process)}")
+    
     log_message(f"\nGenerated folder structure:")
     log_message(f"  outputs/")
     log_message(f"    openai/")

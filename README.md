@@ -51,3 +51,6 @@ outputs/
     │   └── prompt.txt
     └── ...
 ```
+
+### Todo
+- Openai performance so bad. Add gemini.

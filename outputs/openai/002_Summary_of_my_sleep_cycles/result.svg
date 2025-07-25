@@ -1,0 +1,5 @@
+<svg width="360" height="360" xmlns="http://www.w3.org/2000/svg">
+    <circle r="100" cx="180" cy="180" fill="transparent" stroke="#c0c0c0" stroke-width="50" />
+    <circle r="100" cx="180" cy="180" fill="transparent" stroke="#0099ff" stroke-width="50" stroke-dasharray="calc(4.3 / 8 * 100) calc(100 - 4.3 / 8 * 100)" />
+    <text x="180" y="180" text-anchor="middle" fill="#000000" font-size="30" dy=".3em">4.3 hr</text>
+</svg>
