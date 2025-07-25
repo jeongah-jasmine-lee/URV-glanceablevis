@@ -1,0 +1,41 @@
+<svg width="360" height="360" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="360" fill="#000000"/>
+  
+  <!-- Title -->
+  <text x="180" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF">Dancing to Burn 800 cal</text>
+  
+  <!-- Dancing figure icon -->
+  <g transform="translate(180, 100)">
+    <circle cx="0" cy="-15" r="12" fill="#FF6B6B" stroke="none"/>
+    <path d="M -15 -5 L -8 10 L -5 25 M 8 10 L 5 25 M -8 10 L 0 0 L 8 10 M -15 -5 L 0 0 L 15 -5" 
+          stroke="#FF6B6B" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <!-- Circular progress visualization -->
+  <g transform="translate(180, 220)">
+    <!-- Background circle -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#333333" stroke-width="20"/>
+    
+    <!-- Progress arc (800/342 = 2.34 times current workout) -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#FF6B6B" stroke-width="20"
+            stroke-dasharray="502.65" stroke-dashoffset="287.23"
+            transform="rotate(-90)"/>
+    
+    <!-- Center text -->
+    <text x="0" y="-10" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#FFFFFF">67</text>
+    <text x="0" y="15" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#AAAAAA">minutes</text>
+  </g>
+  
+  <!-- Bottom info -->
+  <text x="180" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#AAAAAA">Based on your cycling intensity</text>
+  
+  <!-- Calorie indicator -->
+  <g transform="translate(60, 220)">
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#FF6B6B">🔥 800 cal</text>
+  </g>
+  
+  <!-- Current baseline indicator -->
+  <g transform="translate(300, 220)">
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666666">342 cal/28m</text>
+  </g>
+</svg>

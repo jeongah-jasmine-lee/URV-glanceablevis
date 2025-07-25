@@ -1,0 +1,33 @@
+<svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="360" height="360" fill="#000000"/>
+  
+  <!-- Title -->
+  <text x="180" y="40" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Sleep Summary</text>
+  
+  <!-- Moon icon -->
+  <path d="M 170 70 C 155 70 143 82 143 97 C 143 112 155 124 170 124 C 160 124 152 112 152 97 C 152 82 160 70 170 70" fill="#7C3AED" opacity="0.8"/>
+  
+  <!-- Sleep duration circle -->
+  <circle cx="180" cy="180" r="80" fill="none" stroke="#1a1a1a" stroke-width="40"/>
+  
+  <!-- Sleep duration arc (6.9/8 hours recommended) -->
+  <circle cx="180" cy="180" r="80" fill="none" stroke="#7C3AED" stroke-width="40" 
+          stroke-dasharray="310.88 502.65" 
+          stroke-dashoffset="125.66"
+          stroke-linecap="round"
+          transform="rotate(-90 180 180)"/>
+  
+  <!-- Center text -->
+  <text x="180" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="bold">6.9</text>
+  <text x="180" y="200" text-anchor="middle" fill="#999999" font-family="Arial, sans-serif" font-size="20">hours</text>
+  
+  <!-- Sleep quality indicator -->
+  <rect x="80" y="280" width="200" height="8" rx="4" fill="#1a1a1a"/>
+  <rect x="80" y="280" width="172" height="8" rx="4" fill="#FCD34D"/>
+  
+  <text x="180" y="310" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="16">Sleep Quality: 86%</text>
+  
+  <!-- Warning message -->
+  <text x="180" y="335" text-anchor="middle" fill="#FCD34D" font-family="Arial, sans-serif" font-size="14">Below 8hr recommendation</text>
+</svg>

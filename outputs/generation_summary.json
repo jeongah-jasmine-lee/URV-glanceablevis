@@ -1,0 +1,65 @@
+{
+  "timestamp": "2025-07-25 21:54:17",
+  "configuration": {
+    "num_queries": 5,
+    "temperature": 0.7,
+    "data_selection_strategy": "diverse",
+    "models": [
+      "openai-gpt4",
+      "claude-opus4"
+    ]
+  },
+  "results": {
+    "successful_openai": 0,
+    "successful_claude": 5,
+    "failed_openai": 5,
+    "failed_claude": 0,
+    "processed_queries": [
+      {
+        "query_id": 1,
+        "query_text": "How much dancing do I need to do to burn 800 calories",
+        "folder_name": "001_How_much_dancing_do_I_need_to_do_to_burn_800_calor",
+        "fitness_user_id": 8818,
+        "workout_type": "Cycling",
+        "openai_success": false,
+        "claude_success": true
+      },
+      {
+        "query_id": 2,
+        "query_text": "Summary of my sleep cycles",
+        "folder_name": "002_Summary_of_my_sleep_cycles",
+        "fitness_user_id": 9266,
+        "workout_type": "Cardio",
+        "openai_success": false,
+        "claude_success": true
+      },
+      {
+        "query_id": 3,
+        "query_text": "During which song did I burn the most calories",
+        "folder_name": "003_During_which_song_did_I_burn_the_most_calories",
+        "fitness_user_id": 2603,
+        "workout_type": "HIIT",
+        "openai_success": false,
+        "claude_success": true
+      },
+      {
+        "query_id": 4,
+        "query_text": "Summary of my sleep cycles",
+        "folder_name": "004_Summary_of_my_sleep_cycles",
+        "fitness_user_id": 6977,
+        "workout_type": "Strength",
+        "openai_success": false,
+        "claude_success": true
+      },
+      {
+        "query_id": 5,
+        "query_text": "Which activity had the highest calories burned per minute",
+        "folder_name": "005_Which_activity_had_the_highest_calories_burned_per",
+        "fitness_user_id": 1629,
+        "workout_type": "Yoga",
+        "openai_success": false,
+        "claude_success": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+=== USER QUERY ===
+Query: Summary of my sleep cycles
+Activity: On break
+Related to Activity: No
+Time: nan
+
+=== SELECTED FITNESS DATA ===
+User ID: 6977
+Age: 50 years
+Gender: Male
+Height: 166 cm
+Weight: 118 kg
+Workout Type: Strength
+Workout Duration: 99 minutes
+Calories Burned: 853
+Heart Rate: 119 bpm
+Steps Taken: 15,184
+Distance: 7.77 km
+Workout Intensity: High
+Sleep Hours: 6.9 hours
+Water Intake: 1.9 liters
+Daily Calories Intake: 3,645
+Resting Heart Rate: 81 bpm
+VO2 Max: 38.4
+Body Fat: 28.5%
+Mood Before Workout: Tired
+Mood After Workout: Fatigued
+
+=== FULL PROMPT SENT TO MODEL ===
+You are a data visualization expert specializing in smartwatch health interfaces. You will be given a single row of personal health data and a user query:
+
+User Query: Summary of my sleep cycles
+
+Personal Health Data:
+Age: 50 years
+Gender: Male
+Height: 166 cm
+Weight: 118 kg
+Workout Type: Strength
+Workout Duration: 99 minutes
+Calories Burned: 853
+Heart Rate: 119 bpm
+Steps Taken: 15,184
+Distance: 7.77 km
+Workout Intensity: High
+Sleep Hours: 6.9 hours
+Water Intake: 1.9 liters
+Daily Calories Intake: 3,645
+Resting Heart Rate: 81 bpm
+VO2 Max: 38.4
+Body Fat: 28.5%
+Mood Before Workout: Tired
+Mood After Workout: Fatigued
+
+Your task is to:
+1. Determine the most appropriate visualization mode for the insight, choosing from:
+   - Donut chart
+   - Bar chart  
+   - Icon-based chart
+   - Text-only with color/icon emphasis
+
+2. Generate a single compact SVG suitable for a smartwatch screen (approximately 360x360 pixels). The SVG must be:
+   - Visually clear and glanceable
+   - Optimized for small screens
+   - Aesthetically pleasing, with components contrasting the background
+   - Self-contained (no external styles or dependencies)
+   - Labeled with meaningful titles, units, or icons where appropriate
+   - In the style of a visual that would be seen on a smartwatch
+
+Focus on the user's perspective: What is most relevant for them to know at a glance right now?
+
+Please respond with only the SVG code, starting with <svg and ending with </svg>.
+
+=== MODEL RESPONSE ===
+<svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="360" height="360" fill="#000000"/>
+  
+  <!-- Title -->
+  <text x="180" y="40" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Sleep Summary</text>
+  
+  <!-- Moon icon -->
+  <path d="M 170 70 C 155 70 143 82 143 97 C 143 112 155 124 170 124 C 160 124 152 112 152 97 C 152 82 160 70 170 70" fill="#7C3AED" opacity="0.8"/>
+  
+  <!-- Sleep duration circle -->
+  <circle cx="180" cy="180" r="80" fill="none" stroke="#1a1a1a" stroke-width="40"/>
+  
+  <!-- Sleep duration arc (6.9/8 hours recommended) -->
+  <circle cx="180" cy="180" r="80" fill="none" stroke="#7C3AED" stroke-width="40" 
+          stroke-dasharray="310.88 502.65" 
+          stroke-dashoffset="125.66"
+          stroke-linecap="round"
+          transform="rotate(-90 180 180)"/>
+  
+  <!-- Center text -->
+  <text x="180" y="170" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="bold">6.9</text>
+  <text x="180" y="200" text-anchor="middle" fill="#999999" font-family="Arial, sans-serif" font-size="20">hours</text>
+  
+  <!-- Sleep quality indicator -->
+  <rect x="80" y="280" width="200" height="8" rx="4" fill="#1a1a1a"/>
+  <rect x="80" y="280" width="172" height="8" rx="4" fill="#FCD34D"/>
+  
+  <text x="180" y="310" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="16">Sleep Quality: 86%</text>
+  
+  <!-- Warning message -->
+  <text x="180" y="335" text-anchor="middle" fill="#FCD34D" font-family="Arial, sans-serif" font-size="14">Below 8hr recommendation</text>
+</svg>

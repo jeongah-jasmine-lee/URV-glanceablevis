@@ -1,0 +1,28 @@
+<svg width="360" height="360" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="360" fill="#000000"/>
+  
+  <!-- Title -->
+  <text x="180" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">Calories per Minute</text>
+  
+  <!-- Activity Icon and Label -->
+  <circle cx="180" cy="120" r="50" fill="#FF6B6B" opacity="0.2"/>
+  <path d="M180 90 C165 90 150 100 150 115 C150 130 180 150 180 150 C180 150 210 130 210 115 C210 100 195 90 180 90 Z" fill="#FF6B6B"/>
+  <text x="180" y="190" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle">Yoga</text>
+  
+  <!-- Large Number Display -->
+  <text x="180" y="250" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#FF6B6B" text-anchor="middle">12.1</text>
+  <text x="180" y="280" font-family="Arial, sans-serif" font-size="16" fill="#999999" text-anchor="middle">cal/min</text>
+  
+  <!-- Bottom Stats -->
+  <g transform="translate(90, 310)">
+    <rect x="0" y="0" width="80" height="3" fill="#333333" rx="1.5"/>
+    <rect x="0" y="0" width="60" height="3" fill="#FF6B6B" rx="1.5"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" fill="#666666">45 min</text>
+  </g>
+  
+  <g transform="translate(190, 310)">
+    <rect x="0" y="0" width="80" height="3" fill="#333333" rx="1.5"/>
+    <rect x="0" y="0" width="80" height="3" fill="#FF6B6B" rx="1.5"/>
+    <text x="0" y="20" font-family="Arial, sans-serif" font-size="12" fill="#666666">544 cal</text>
+  </g>
+</svg>

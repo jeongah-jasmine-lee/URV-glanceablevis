@@ -1,0 +1,97 @@
+=== USER QUERY ===
+Query: During which song did I burn the most calories
+Activity: Dancing
+Related to Activity: Yes
+Time: After
+
+=== SELECTED FITNESS DATA ===
+User ID: 2603
+Age: 25 years
+Gender: Other
+Height: 182 cm
+Weight: 118 kg
+Workout Type: HIIT
+Workout Duration: 63 minutes
+Calories Burned: 256
+Heart Rate: 90 bpm
+Steps Taken: 8,086
+Distance: 6.12 km
+Workout Intensity: High
+Sleep Hours: 8.0 hours
+Water Intake: 1.9 liters
+Daily Calories Intake: 3,064
+Resting Heart Rate: 86 bpm
+VO2 Max: 38.4
+Body Fat: 28.5%
+Mood Before Workout: Happy
+Mood After Workout: Neutral
+
+=== FULL PROMPT SENT TO MODEL ===
+You are a data visualization expert specializing in smartwatch health interfaces. You will be given a single row of personal health data and a user query:
+
+User Query: During which song did I burn the most calories
+
+Personal Health Data:
+Age: 25 years
+Gender: Other
+Height: 182 cm
+Weight: 118 kg
+Workout Type: HIIT
+Workout Duration: 63 minutes
+Calories Burned: 256
+Heart Rate: 90 bpm
+Steps Taken: 8,086
+Distance: 6.12 km
+Workout Intensity: High
+Sleep Hours: 8.0 hours
+Water Intake: 1.9 liters
+Daily Calories Intake: 3,064
+Resting Heart Rate: 86 bpm
+VO2 Max: 38.4
+Body Fat: 28.5%
+Mood Before Workout: Happy
+Mood After Workout: Neutral
+
+Your task is to:
+1. Determine the most appropriate visualization mode for the insight, choosing from:
+   - Donut chart
+   - Bar chart  
+   - Icon-based chart
+   - Text-only with color/icon emphasis
+
+2. Generate a single compact SVG suitable for a smartwatch screen (approximately 360x360 pixels). The SVG must be:
+   - Visually clear and glanceable
+   - Optimized for small screens
+   - Aesthetically pleasing, with components contrasting the background
+   - Self-contained (no external styles or dependencies)
+   - Labeled with meaningful titles, units, or icons where appropriate
+   - In the style of a visual that would be seen on a smartwatch
+
+Focus on the user's perspective: What is most relevant for them to know at a glance right now?
+
+Please respond with only the SVG code, starting with <svg and ending with </svg>.
+
+=== MODEL RESPONSE ===
+<svg width="360" height="360" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="360" height="360" fill="#000000"/>
+  
+  <!-- Title -->
+  <text x="180" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">Song Calorie Data</text>
+  
+  <!-- No Song Data Available Message -->
+  <circle cx="180" cy="180" r="80" fill="none" stroke="#333333" stroke-width="3"/>
+  
+  <!-- Music Icon -->
+  <g transform="translate(180, 180)">
+    <path d="M-20,-30 L-20,10 Q-20,20 -10,20 Q0,20 0,10 L0,-10 L20,-20 L20,10 Q20,20 30,20 Q40,20 40,10 L40,-30" 
+          fill="none" stroke="#666666" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="-10" cy="10" r="8" fill="#666666"/>
+    <circle cx="30" cy="10" r="8" fill="#666666"/>
+  </g>
+  
+  <!-- Info Text -->
+  <text x="180" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#999999">No song-specific data</text>
+  <text x="180" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666666">Total: 256 calories burned</text>
+  <text x="180" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#666666">63 min HIIT workout</text>
+</svg>

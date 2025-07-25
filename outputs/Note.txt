@@ -1,0 +1,122 @@
+Loading data...
+Loaded 205 queries
+Loaded 10000 fitness records
+
+Processing 5 queries...
+Data selection strategy: 'diverse' (different workout types)
+==================================================
+
+Processing query 1/5
+Query: How much dancing do I need to do to burn 800 calories
+Activity: Eating lunch
+Selected fitness data: User 8818 - Cycling (SAME for both models)
+  Calling OpenAI GPT-4...
+OpenAI error: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+
+  ✗ OpenAI generation failed
+  Calling Claude Opus 4...
+  ✓ Claude files saved (SVG, PNG, prompt)
+
+Processing query 2/5
+Query: Summary of my sleep cycles
+Activity: On break
+Selected fitness data: User 9266 - Cardio (SAME for both models)
+  Calling OpenAI GPT-4...
+OpenAI error: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+
+  ✗ OpenAI generation failed
+  Calling Claude Opus 4...
+  ✓ Claude files saved (SVG, PNG, prompt)
+
+Processing query 3/5
+Query: During which song did I burn the most calories
+Activity: Dancing
+Selected fitness data: User 2603 - HIIT (SAME for both models)
+  Calling OpenAI GPT-4...
+OpenAI error: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+
+  ✗ OpenAI generation failed
+  Calling Claude Opus 4...
+  ✓ Claude files saved (SVG, PNG, prompt)
+
+Processing query 4/5
+Query: Summary of my sleep cycles
+Activity: On break
+Selected fitness data: User 6977 - Strength (SAME for both models)
+  Calling OpenAI GPT-4...
+OpenAI error: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+
+  ✗ OpenAI generation failed
+  Calling Claude Opus 4...
+  ✓ Claude files saved (SVG, PNG, prompt)
+
+Processing query 5/5
+Query: Which activity had the highest calories burned per minute
+Activity: Lying down
+Selected fitness data: User 1629 - Yoga (SAME for both models)
+  Calling OpenAI GPT-4...
+OpenAI error: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+
+  ✗ OpenAI generation failed
+  Calling Claude Opus 4...
+  ✓ Claude files saved (SVG, PNG, prompt)
+
+==================================================
+RESULTS SUMMARY
+==================================================
+OpenAI GPT-4: 0 successful, 5 failed
+Claude Opus 4: 5 successful, 0 failed
+
+Generated folder structure:
+  outputs/
+    openai/
+    claude/
+      001_How_much_dancing_do_I_need_to_do_to_burn_800_calor/
+      002_Summary_of_my_sleep_cycles/
+      003_During_which_song_did_I_burn_the_most_calories/
+      004_Summary_of_my_sleep_cycles/
+      005_Which_activity_had_the_highest_calories_burned_per/
+
+Generation summary saved to: outputs/generation_summary.json
+All logs saved to: outputs/Note.txt
+Done!
